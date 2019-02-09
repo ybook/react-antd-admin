@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
-import {Route, Switch} from 'react-router-dom'
+import {Redirect, Route, Switch} from 'react-router-dom'
 import routes from './config'
+import {getToken} from '../utils/tools'
+import NotFound from '../pages/Error/NotFound'
+import qs from 'query-string'
 
 class Routes extends Component {
   renderRoute = (r) => {
-    return (
+    return getToken() ?
       <Route
         key={r.key}
         exact
@@ -15,15 +18,22 @@ class Routes extends Component {
             props.location.parentKey = r.parentKey
           }
           props.location.title = r.title
-          props.location.searchParams = new URLSearchParams(search)
+          props.location.searchParams = qs.parse(search)
           props.rootStore = this.props.rootStore
           return <r.component {...props}/>
         }}/>
-    )
+      :
+      <Redirect
+        key={r.key}
+        to={{
+          pathname: '/login',
+          state: {from: this.props.location}
+        }}/>
   }
 
   /**
-   * 递归方式遍历路由
+   * Recursive routing
+   * 递归路由
    * @param routes
    * @returns {*}
    */
@@ -43,6 +53,7 @@ class Routes extends Component {
     return (
       <Switch location={this.props.location}>
         {this.mapRoutes(routes)}
+        <Route component={NotFound}/>
       </Switch>
     )
   }

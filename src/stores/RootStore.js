@@ -1,15 +1,10 @@
 import {observable, action} from 'mobx'
-import UserStore from './UserStore'
 import config from '../utils/config'
 
 const LOCALE = 'ROOTSTORE_LOCALE'
 
 class RootStore {
   @observable locale = 'en'
-
-  constructor() {
-    this.userStore = new UserStore(this)
-  }
 
   @action loadLocale() {
     const dataStr = localStorage.getItem(LOCALE)

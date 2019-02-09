@@ -58,3 +58,39 @@
   width: 100%;
   bottom: 0;
 }
+
+.footer-view {
+  padding: 0 16px;
+  margin: 48px 0 24px;
+  text-align: center;
+
+  &-links {
+    margin-bottom: 8px;
+
+    a {
+      color: rgba(0, 0, 0, .45);
+
+      &:hover {
+        color: rgba(0, 0, 0, .6)
+      }
+    }
+
+    & > span {
+      color: rgba(0, 0, 0, .45);
+      cursor: pointer;
+
+      &:not(:last-child) {
+        margin-right: 40px;
+      }
+
+      &:hover {
+        color: rgba(0, 0, 0, .6)
+      }
+    }
+  }
+}
+
+.footer-copyright {
+  color: rgba(0, 0, 0, .45);
+  font-size: 13px;
+}

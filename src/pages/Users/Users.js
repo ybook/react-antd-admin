@@ -6,7 +6,7 @@ class Users extends Component {
     return (
       <div>
         Users
-        <p>query: <span style={{color: 'red'}}>{location.searchParams.get('sort')}</span></p>
+        <p>query: <span style={{color: 'red'}}>{location.searchParams.sort}</span></p>
       </div>
     )
   }

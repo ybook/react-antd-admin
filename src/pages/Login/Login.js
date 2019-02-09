@@ -1,25 +1,26 @@
 import React, {PureComponent, Fragment} from 'react'
-import {Button, Row, Form, Input} from 'antd'
-import config from '../../utils/config'
-import './Login.less'
+import {Button, Row, Form, Input, Icon} from 'antd'
+import styles from './Login.less'
+import {setToken} from '../../utils/tools'
+import {FormattedMessage} from 'react-intl'
+import {inject} from 'mobx-react'
 
 const FormItem = Form.Item
 
+@inject('rootStore')
 @Form.create()
 class Login extends PureComponent {
-  handleOk = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault()
     const {form} = this.props
     const {validateFieldsAndScroll} = form
-    validateFieldsAndScroll((errors, values) => {
+    validateFieldsAndScroll(async (errors, values) => {
       if (errors) {
         return
       }
-      if (values.username === 'guest' && values.password === 'guest') {
-        this.props.history.push('/')
-      } else {
-
-      }
+      const result = await Api.login(values, {mock: true})
+      setToken(result.token)
+      this.props.history.replace('/app/dashboard')
     })
   }
 
@@ -28,37 +29,27 @@ class Login extends PureComponent {
     const {getFieldDecorator} = form
     return (
       <Fragment>
-        <div className='form'>
-          <div className='logo'>
+        <div className={styles.form}>
+          <div className={styles.logo}>
             {/*<img alt='logo' src={config.logoPath}/>*/}
-            <span>{config.siteName}</span>
+            <span>{Config.siteName}</span>
           </div>
-          <form>
+          <Form onSubmit={this.handleSubmit}>
             <FormItem hasFeedback>
               {getFieldDecorator('username', {
-                rules: [
-                  {
-                    required: true,
-                  },
-                ],
+                rules: [{required: true}]
               })(
                 <Input
-                  onPressEnter={this.handleOk}
                   placeholder={`Username`}
                 />
               )}
             </FormItem>
             <FormItem hasFeedback>
               {getFieldDecorator('password', {
-                rules: [
-                  {
-                    required: true,
-                  },
-                ],
+                rules: [{required: true}]
               })(
                 <Input
                   type='password'
-                  onPressEnter={this.handleOk}
                   placeholder={`Password`}
                 />
               )}
@@ -66,23 +57,39 @@ class Login extends PureComponent {
             <Row>
               <Button
                 type='primary'
-                onClick={this.handleOk}
-              >
-                Sign in
+                htmlType={'submit'}>
+                <FormattedMessage id='intl.signIn'/>
               </Button>
               <p>
-                <span>
-                  Username：guest
-                </span>
-                <span>
-                  Password：guest
-                </span>
+                <span>Username：guest</span>
+                <span>Password：guest</span>
               </p>
             </Row>
-          </form>
+          </Form>
         </div>
-        <div className='footer'>
-
+        <div className={styles.footer}>
+          <footer className={styles['footer-view']}>
+            <div className={styles['footer-view-links']}>
+              <span>
+                <a
+                  title='github'
+                  rel="noopener noreferrer"
+                  target='_blank'
+                  href='https://github.com/shx996/react-admin-template'>
+                <Icon type="github"/>
+              </a>
+              </span>
+              <span
+                onClick={() => {
+                  this.props.rootStore.changeLocale('en')
+                }}>English</span>
+              <span
+                onClick={() => {
+                  this.props.rootStore.changeLocale('zh')
+                }}>中文</span>
+            </div>
+            <div className={styles['footer-copyright']}>Ant Design Admin © 2019 shx996</div>
+          </footer>
         </div>
       </Fragment>
     )

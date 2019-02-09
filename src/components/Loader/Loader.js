@@ -1,14 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './Loader.less'
+import classNames from 'classnames'
+import styles from './Loader.less'
 
-const Loader = ({spinning = true, fullScreen}) => {
-  const className = `loader ${!spinning ? 'hidden' : ''} ${fullScreen ? 'fullScreen' : ''}`
+const Loader = ({ spinning = true, fullScreen }) => {
   return (
-    <div className={className}>
-      <div className='warpper'>
-        <div className='inner'/>
-        <div className='text'>LOADING</div>
+    <div
+      className={classNames(styles.loader, {
+        [styles.hidden]: !spinning,
+        [styles.fullScreen]: fullScreen,
+      })}
+    >
+      <div className={styles.wrapper}>
+        <div className={styles.inner} />
+        <div className={styles.text}>LOADING</div>
       </div>
     </div>
   )

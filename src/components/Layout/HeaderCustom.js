@@ -1,9 +1,9 @@
 import React, {Component, Fragment} from 'react'
 import {Avatar, Layout, Icon, Menu} from 'antd'
-import './HeaderCustom.less'
+import styles from './HeaderCustom.less'
 import PropTypes from 'prop-types'
-import config from '../../utils/config'
 import {inject} from 'mobx-react'
+import {FormattedMessage} from 'react-intl'
 
 const {Header} = Layout
 
@@ -17,7 +17,7 @@ class HeaderCustom extends Component {
   }
 
   handleClickMenu = (e) => {
-    e.key === 'Signout' && this.props.onSignOut()
+    e.key === 'SignOut' && this.props.onSignOut()
   }
 
   changeLocale = (e) => {
@@ -26,22 +26,22 @@ class HeaderCustom extends Component {
   }
 
   render() {
-    const {languages} = config.i18n
+    const {languages} = Config.i18n
     const {rootStore} = this.props
     const currentLanguage = languages.find(
       item => item.key === rootStore.locale
     )
     return (
-      <Header className='header'>
+      <Header className={styles.header}>
         <div
-          className='button'
+          className={styles.button}
           onClick={this.props.onCollapseChange}>
           <Icon
-            className='trigger'
+            className={styles.trigger}
             type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
           />
         </div>
-        <div className='right-container'>
+        <div className={styles['right-container']}>
           <Menu
             mode='horizontal'
             theme='light'
@@ -74,7 +74,9 @@ class HeaderCustom extends Component {
                   <Avatar style={{marginLeft: 8}}
                           src={this.props.user.avatar}/>
                 </Fragment>}>
-              <Menu.Item key='SignOut'>SignOut</Menu.Item>
+              <Menu.Item key='SignOut'>
+                <FormattedMessage id='intl.signOut'/>
+              </Menu.Item>
             </Menu.SubMenu>
           </Menu>
         </div>

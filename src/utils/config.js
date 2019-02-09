@@ -6,6 +6,7 @@ module.exports = {
   siteName: 'React Admin',
   copyright: `React-Admin-Template ©${new Date().getFullYear()} Created by heller.sun@foxmail.com`,
   logoPath: '/logo.svg',
+  adminBasePath: '/app',
 
   /* I18n configuration */
   i18n: {

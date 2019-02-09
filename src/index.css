@@ -9,7 +9,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.loading-view {
+:global(.loading-view) {
   background-color: rgba(255, 255, 255, .75);
   width: 100%;
   position: fixed;
@@ -23,6 +23,6 @@ code {
   text-align: center;
 }
 
-.hidden {
+:global(.hidden) {
   display: none;
 }

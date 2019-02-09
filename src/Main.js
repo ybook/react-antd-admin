@@ -5,7 +5,7 @@ import Routes from './routes'
 import routesConfig from './routes/config'
 import {Link} from 'react-router-dom'
 import {inject} from 'mobx-react'
-import config from './utils/config'
+import {signOut} from './utils/tools'
 
 const {Content, Footer} = Layout
 
@@ -38,12 +38,15 @@ class Main extends Component {
   }
 
   onSignOut = () => {
+    signOut()
     this.props.history.push('/login')
   }
 
   updateTitle = (props) => {
     setTimeout(() => {
-      document.title = props.location.title
+      if (props.location.title) {
+        document.title = props.location.title
+      }
     }, 0)
   }
 
@@ -85,7 +88,7 @@ class Main extends Component {
             onSignOut={this.onSignOut}/>
           <Breadcrumb style={{margin: '15px 16px'}}>
             {
-              location.pathname !== '/dashboard' &&
+              location.pathname !== '/app/dashboard' &&
               <Breadcrumb.Item>
                 <Link to='/' className='breadcrumb-link'>
                   <Icon type='dashboard'/>
@@ -111,12 +114,12 @@ class Main extends Component {
           </Breadcrumb>
           <Content
             style={{
-              margin: '0 16px', padding: 24, background: '#fff', minHeight: 280,
+              position: 'relative', margin: '0 16px', padding: 24, background: '#fff', minHeight: 280
             }}>
             <Routes rootStore={this.props.rootStore}/>
           </Content>
           <Footer style={{textAlign: 'center'}}>
-            {config.copyright}
+            {Config.copyright}
           </Footer>
         </Layout>
       </Layout>

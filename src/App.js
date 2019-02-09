@@ -1,15 +1,25 @@
 import React from 'react'
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
+import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
 import Loadable from 'react-loadable'
+import {IntlProvider, addLocaleData} from 'react-intl'
+import {LocaleProvider} from 'antd'
+import zh from 'react-intl/locale-data/zh'
+import en from 'react-intl/locale-data/en'
+import enUS from './locales/en-US.js'
+import zhCN from './locales/zh-CN.js'
+import antdEnUS from 'antd/lib/locale-provider/en_US'
+import antdEnzhCN from 'antd/lib/locale-provider/zh_CN'
+import 'moment/locale/zh-cn'
 import {observer, Provider} from 'mobx-react'
 import {configure} from 'mobx'
 import rootStore from './stores/RootStore'
 import {Loader} from './components'
+import api from './service/api'
 import './App.less'
-import {LocaleProvider} from 'antd'
-import enUS from 'antd/lib/locale-provider/en_US'
-import zhCN from 'antd/lib/locale-provider/zh_CN'
-import 'moment/locale/zh-cn'
+import config from './utils/config'
+
+global.Api = api
+global.Config = config
 
 configure({enforceActions: 'always'})
 
@@ -25,9 +35,22 @@ const Main = Loadable({
   loader: () => import('./Main')
 })
 
-const antdLangMap = {
+const NotFound = Loadable({
+  loading,
+  loader: () => import('./pages/Error/NotFound')
+})
+
+
+addLocaleData([...en, ...zh])
+
+const langMap = {
   en: enUS,
   zh: zhCN
+}
+
+const antdLangMap = {
+  en: antdEnUS,
+  zh: antdEnzhCN
 }
 
 @observer
@@ -39,17 +62,22 @@ class App extends React.Component {
 
   render() {
     return (
-      <LocaleProvider locale={antdLangMap[rootStore.locale]}>
-        <Provider rootStore={rootStore}>
-          <Router>
-            <Switch>
-              <Route exact path='/' render={() => <Redirect to='/dashboard' push/>}/>
-              <Route path='/login' component={Login}/>
-              <Route path='/' component={Main}/>
-            </Switch>
-          </Router>
-        </Provider>
-      </LocaleProvider>
+      <IntlProvider
+        locale={rootStore.locale}
+        messages={langMap[rootStore.locale]}>
+        <LocaleProvider locale={antdLangMap[rootStore.locale]}>
+          <Provider rootStore={rootStore}>
+            <Router>
+              <Switch>
+                <Route exact path='/' render={() => <Redirect to={`${config.adminBasePath}/dashboard`} push/>}/>
+                <Route path='/login' component={Login}/>
+                <Route path={config.adminBasePath} component={Main}/>
+                <Route component={NotFound}/>
+              </Switch>
+            </Router>
+          </Provider>
+        </LocaleProvider>
+      </IntlProvider>
     )
   }
 }

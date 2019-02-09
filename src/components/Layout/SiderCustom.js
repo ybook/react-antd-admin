@@ -58,11 +58,6 @@ class SiderCustom extends Component {
     })
   }
 
-  /**
-   * 侧边菜单仅实现到二级，若是多级请使用递归
-   * @param item
-   * @returns {*}
-   */
   renderMenuItem = item => {
     const {rootStore} = this.props
     const title = rootStore.locale !== 'en' ? item[rootStore.locale + 'Title'] || item.title : item.title
