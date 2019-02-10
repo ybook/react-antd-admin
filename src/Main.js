@@ -90,7 +90,7 @@ class Main extends Component {
             {
               location.pathname !== '/app/dashboard' &&
               <Breadcrumb.Item>
-                <Link to='/' className='breadcrumb-link'>
+                <Link to='/app/dashboard' className='breadcrumb-link'>
                   <Icon type='dashboard'/>
                   <span>Dashboard</span>
                 </Link>

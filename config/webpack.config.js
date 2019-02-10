@@ -23,7 +23,10 @@ const getClientEnvironment = require('./env')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin-alt')
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter')
+const lessToJs = require('less-vars-to-js')
 
+const paletteLess = fs.readFileSync(`${paths.appSrc}/styles/theme.less`, 'utf8');
+const theme = lessToJs(paletteLess, {resolveVariables: true, stripPrefix: true});
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false'
@@ -445,13 +448,7 @@ module.exports = function (webpackEnv) {
                 {
                   importLoaders: 2,
                   sourceMap: isEnvProduction && shouldUseSourceMap,
-                  modifyVars: {
-                    '@primary-color': '#017bff',
-                    '@border-radius-base': '4px',
-                    '@layout-sider-background': '#191919',
-                    '@menu-dark-bg': '#191919',
-                    '@menu-dark-submenu-bg':'#101010'
-                  },
+                  modifyVars: theme,
                   javascriptEnabled: true,
                 },
                 'less-loader'
