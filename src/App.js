@@ -8,7 +8,7 @@ import en from 'react-intl/locale-data/en'
 import enUS from './locales/en-US.js'
 import zhCN from './locales/zh-CN.js'
 import antdEnUS from 'antd/lib/locale-provider/en_US'
-import antdEnzhCN from 'antd/lib/locale-provider/zh_CN'
+import antdZhCN from 'antd/lib/locale-provider/zh_CN'
 import 'moment/locale/zh-cn'
 import {observer, Provider} from 'mobx-react'
 import {configure} from 'mobx'
@@ -50,7 +50,7 @@ const langMap = {
 
 const antdLangMap = {
   en: antdEnUS,
-  zh: antdEnzhCN
+  zh: antdZhCN
 }
 
 @observer
