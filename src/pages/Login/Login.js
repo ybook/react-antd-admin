@@ -75,7 +75,7 @@ class Login extends PureComponent {
                   title='github'
                   rel="noopener noreferrer"
                   target='_blank'
-                  href='https://github.com/shx996/react-admin-template'>
+                  href='https://github.com/shx996/react-antd-admin'>
                 <Icon type="github"/>
               </a>
               </span>

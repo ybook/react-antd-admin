@@ -1,4 +1,4 @@
-# react-admin-template
+# react-antd-admin
 
 A simple and complete front-end management solution based on Ant Design
 
@@ -7,8 +7,8 @@ A simple and complete front-end management solution based on Ant Design
 1. Clone project code.
 
 ```bash
-git clone https://github.com/shx996/react-admin-template.git
-cd react-admin-template
+git clone https://github.com/shx996/react-antd-admin.git
+cd react-antd-admin
 ```
 
 2. Installation dependence.
