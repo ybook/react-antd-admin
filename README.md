@@ -28,3 +28,6 @@ npm install
 ```bash
 npm run start
 ```
+
+如果你恰好在天朝：   
+[react-antd-admin掘金使用说明](https://juejin.im/post/5c6136656fb9a049e30891ed)
