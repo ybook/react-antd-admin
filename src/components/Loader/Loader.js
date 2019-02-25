@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import styles from './Loader.less'
+import styles from './Loader.module.less'
 
 const Loader = ({ spinning = true, fullScreen }) => {
   return (

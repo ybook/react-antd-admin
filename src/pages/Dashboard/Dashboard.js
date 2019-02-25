@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {Button} from 'antd'
-import styles from './Dashboard.less'
+import styles from './Dashboard.module.less'
 
 @observer
 class Dashboard extends Component {

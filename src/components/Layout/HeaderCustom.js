@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import {Avatar, Layout, Icon, Menu} from 'antd'
-import styles from './HeaderCustom.less'
+import styles from './HeaderCustom.module.less'
 import PropTypes from 'prop-types'
 import {inject} from 'mobx-react'
 import {FormattedMessage} from 'react-intl'

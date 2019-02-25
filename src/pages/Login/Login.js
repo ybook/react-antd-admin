@@ -1,6 +1,6 @@
 import React, {PureComponent, Fragment} from 'react'
 import {Button, Row, Form, Input, Icon} from 'antd'
-import styles from './Login.less'
+import styles from './Login.module.less'
 import {setToken} from '../../utils/tools'
 import {FormattedMessage} from 'react-intl'
 import {inject} from 'mobx-react'
